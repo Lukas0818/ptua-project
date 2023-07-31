@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="hero-section">
+  <div class="hero-content">
+    <h1>Sveiki atvykę į mūsų puslapi</h1>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+    <a href="#services" class="btn btn-primary">Sužinokite daugiau</a>
+    <a href="#contact" class="btn btn-primary">Susisiekite</a>
+  </div>
+</section>
+
+<section id="services" class="services-section">
+  <div class="container">
+    <h2>Mūsų Paslaugos</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="service-item">
+          <i class="fa fa-cogs"></i>
+          <h3>Paslauga 1</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service-item">
+          <i class="fa fa-laptop"></i>
+          <h3>Paslauga 2</h3>
+          <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="service-item">
+          <i class="fa fa-paint-brush"></i>
+          <h3>Paslauga 3</h3>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="container" style="text-align: center;">
+    <h2>Apie Mus</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dapibus mi vitae justo sagittis tincidunt.
+      Sed varius gravida mauris, eget gravida massa scelerisque eu.</p>
+    <a href="{% url 'about_us'%}" class="btn btn-primary">Skaityti daugiau</a>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="container">
+    <h2>Susisiekite</h2>
+    <p>Jei turite klausimų, susisiekite su mumis naudodami toliau pateiktą formą.</p>
+    <form id="contactForm" method="POST" action="{% url 'contact_form_submit' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <input type="text" class="form-control" name="name" placeholder="Jūsų Vardas" required>
+        <small class="error-message" id="nameError">Įveskite savo vardą.</small>
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" name="email" placeholder="Jūsų el. paštas" required>
+        <small class="error-message" id="emailError">Įveskite galiojantį elektroninio pašto adresą.</small>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" name="message" placeholder="Jūsų žinutė" rows="4" required></textarea>
+        <small class="error-message" id="messageError">Įveskite savo žinutę</small>
+      </div>
+      <button type="button" id="sendMessageBtn" class="btn btn-primary">Siustį žinutę</button>
+    </form>
+    <div id="messageDisplay"></div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('sendMessageBtn').addEventListener('click', function () {
+    var form = document.getElementById('contactForm');
+    var formData = new FormData(form);
+    var nameField = form.elements.name;
+    var emailField = form.elements.email;
+    var messageField = form.elements.message;
+    var nameError = document.getElementById('nameError');
+    var emailError = document.getElementById('emailError');
+    var messageError = document.getElementById('messageError');
+    nameError.style.display = 'none';
+    emailError.style.display = 'none';
+    messageError.style.display = 'none';
+
+    if (nameField.value.trim() === '') {
+      nameError.style.display = 'block';
+      return;
+    }
+
+    if (!isValidEmail(emailField.value)) {
+      emailError.style.display = 'block';
+      return;
+    }
+
+    if (messageField.value.trim() === '') {
+      messageError.style.display = 'block';
+      return;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', form.action, true);
+    xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        var response = JSON.parse(xhr.responseText);
+        var messageDisplay = document.getElementById('messageDisplay');
+        if (response.status === 'success') {
+          messageDisplay.innerHTML = '<p class="success-message">Jūsų pranešimas gautas.</p>';
+          form.reset();
+        } else {
+          messageDisplay.innerHTML = '<p class="error-message">' + response.message + '</p>';
+        }
+      }
+    };
+    xhr.send(formData);
+  });
+
+  function isValidEmail(email) {
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+</script>
+
+{% endblock %}

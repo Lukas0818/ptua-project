@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puslapio Pavadinimas</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base_content_style.css' %}">
+</head>
+<body>
+
+  <header>
+    <ul class="menu navbar">
+      <li><a href="/">Pagrindinis</a></li>
+      {% if user.is_authenticated %}
+      <li>
+        <a href="">Nuorodos</a>
+        <ul class="submenu">
+          <li><a href="{% url 'projectsApp:projects' %}">Projektai</a></li>
+          <li><a href="">Paslaugos</a></li>
+          <li><a href="">Atsiliepimai</a></li>
+        </ul>			
+      </li>
+      <!-- <li><a href="{% url 'profile'%}">Profilis</a></li> -->
+      <li><a href="{% url 'about_us'%}">Apie mus</a></li>
+      <li><a href="{% url 'logout'%}">Atsijungti</a></li>
+      {% else %}
+      <li><a href="{% url 'login'%}">Prisijungti</a></li>
+      <li><a href="{% url 'register'%}">Registruotis</a></li>
+      {% endif %}
+    </ul>
+  </header>
+
+  <div class="main-content">
+    {% block content %}
+    {% endblock content %}
+  </div>
+
+  <footer>
+    <div class="container-footer">
+      &copy; 2023 - Visos teisės saugomos
+    </div>
+  </footer>
+
+</body>
+</html>
