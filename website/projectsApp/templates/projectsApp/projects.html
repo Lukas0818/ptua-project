@@ -2,7 +2,34 @@
 
 {% block content %}
 
-<h1>Projektai...</h1>
-<p>Soon...</p>
+<div class="search-form-container">
+  <form method="get" action="{% url 'projectsApp:projects' %}" class="search-form">
+    <div class="form-field">
+      {{ form.search_name.label_tag }} {{ form.search_name }}
+    </div>
+    <div class="form-field">
+      {{ form.search_status.label_tag }} {{ form.search_status }}
+    </div>
+    <div class="form-field">
+      {{ form.search_category.label_tag }} {{ form.search_category }}
+    </div>
+    <input type="submit" value="Filtruoti" class="search-button">
+  </form>
+</div>
+
+<div class="projects">
+  <h1>Projektų sąrašas</h1>
+  <ul>
+    {% for project in projects %}
+      <li>
+        <h2>{{ project.name }}</h2>
+        <p>{{ project.status }}</p>
+        <div class="button-container">
+          <a href="{% url 'projectsApp:project_details' project.id %}">Skaityti plačiau</a>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
 
 {% endblock %}

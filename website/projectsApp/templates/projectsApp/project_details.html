@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="project_details">
+  <h1>{{ project.name }}</h1>
+  <p>Statusas: {{ project.status }}</p>
+  <p>Pradžios data: {{ project.start_date }}</p>
+  <p>Pabaigos data: {{ project.end_date }}</p>
+  <p>Kategorija: {{ project.category.name }}</p>
+  <p>Aprašymas:</p>
+  <p> {{ project.description }} </p>
+
+  <a href="{% url 'projectsApp:projects' %}">Grįžti į projektų sąrašą</a>
+
+</div>
+
+{% endblock %}
