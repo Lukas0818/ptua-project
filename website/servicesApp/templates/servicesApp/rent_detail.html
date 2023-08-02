@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="service_details">
+    <h1>{{ service.name }}</h1>
+    <p>Aprašymas:</p>
+    <p>{{ service.description }}</p>
+    <p>Kaina: ${{ service.price }}</p>
+    <p>Likutis: {% if service.stock == 0 %}Šiuo metu prekės neturime{% else %}{{ service.stock }}{% endif %}</p>
+    {% if service.stock > 0 %}
+    <form action="{% url 'servicesApp:rent_service' service.pk %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Nuomotis">
+    </form>
+    {% endif %}
+    <div>
+    <a href="{% url 'servicesApp:services_list' %}">Grįžti į paslaugų sarašą</a>
+    </div>
+  </div>
+  
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="services">
+    <h1>Išsinuomotos prekės</h1>
+    <ul>
+      {% for rented_service in rented_services %}
+      <li>
+        <h2>{{ rented_service.service.name }}</h2>
+        <div class="button-container">
+          <a href="{% url 'servicesApp:rented_service_detail' rented_service.pk %}">Skaityti daugiau</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <h1>Nuomotis: {{ service.name }}</h1>
+  <form action="{% url 'servicesApp:rent_service' service.pk %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <script>
+      $(document).ready(function() {
+          $("#id_start_date, #id_end_date").datepicker();
+
+          function updatePrice() {
+              var startDate = $("#id_start_date").val();
+              var endDate = $("#id_end_date").val();
+              var days = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24);
+              var pricePerDay = {{ service.price }};
+              var totalPrice = days * pricePerDay;
+              if (totalPrice > 0) {
+                $("#total_price").text("Nauja kaina: " + totalPrice);
+              }
+          }
+
+          $("#id_start_date, #id_end_date").change(updatePrice);
+          updatePrice();
+      });
+    </script>
+
+    <p>Kaina: {{ service.price }} dienai</p>
+    <p id="total_price"></p>
+
+    <input type="submit" value="Patvirtinti">
+  </form>
+  <style>
+    h1 {
+  text-align: center;
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+form p {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+input[type="submit"] {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: blue;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+input[type="submit"]:hover {
+  background-color: darkblue;
+}
+
+#total_price {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #444;
+}
+
+.ui-datepicker {
+  width: auto;
+  font-size: 14px;
+}
+
+.ui-datepicker table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.ui-datepicker td {
+  border: 1px solid #eee;
+  padding: 5px;
+}
+
+.ui-datepicker td a {
+  text-decoration: none;
+  color: #333;
+}
+
+.ui-datepicker td.ui-datepicker-today a {
+  color: red;
+}
+
+  </style>
+  
+{% endblock %}

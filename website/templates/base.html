@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/base_content_style.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/projects.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/services.css' %}">
 </head>
 <body>
 
@@ -21,7 +22,7 @@
         <a href="">Nuorodos</a>
         <ul class="submenu">
           <li><a href="{% url 'projectsApp:projects' %}">Projektai</a></li>
-          <li><a href="">Paslaugos</a></li>
+          <li><a href="{% url 'servicesApp:services_list' %}">Paslaugos</a></li>
           <li><a href="">Atsiliepimai</a></li>
         </ul>			
       </li>

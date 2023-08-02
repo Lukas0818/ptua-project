@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="service_details">
+    <h1>{{ rented_service.service.name }}</h1>
+    <p>Data nuo kada išsinuomota: {{ rented_service.start_date }}</p>
+    <p>Data iki kada išsinuomota: {{ rented_service.end_date }}</p>
+    <p>Paslaugos kaina: {{ rented_service.total_price }}</p>
+    {% if rented_service.returned == False %}
+      <form action="{% url 'servicesApp:return_service' rented_service.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Grąžinti">
+      </form>
+    {% endif %}
+  </div>
+  
+{% endblock %}

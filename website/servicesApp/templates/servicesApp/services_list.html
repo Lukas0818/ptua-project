@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="search-form-container">
+    <form method="get" action="{% url 'servicesApp:services_list' %}" class="search-form">
+      <div class="form-field">
+        {{ form.search_category.label_tag }} {{ form.search_category }}
+      </div>
+      <input type="submit" value="Filtruoti" class="search-button">
+    </form>
+  </div>
+
+  <div class="services">
+    <h1>Paslaugų sarašas</h1>
+    <div class="button-container">
+      <a href="{% url 'servicesApp:rented_services' %}" class="btn btn-primary">Išsinuomotos prekės</a>
+    </div>
+    <ul>
+      {% for service in services %}
+      <li>
+        <h2>{{ service.name }}</h2>
+        <div class="button-container">
+          <a href="{% url 'servicesApp:service_detail' service.pk %}">Skaityti daugiau</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+{% endblock %}

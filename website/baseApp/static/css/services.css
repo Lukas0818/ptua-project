@@ -1,0 +1,79 @@
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.services h1 {
+  width: 100%;
+  text-align: center;
+}
+
+.services ul {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: space-between;
+}
+
+.services li {
+  width: calc(33.333% - 20px);
+  padding: 20px;
+  margin: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.services li h2 {
+  margin: 0 0 10px;
+  font-size: 1.2em;
+}
+
+.services li p {
+  margin: 0 0 10px;
+}
+
+.services li .button-container a {
+  padding: 10px 20px;
+  background-color: gray;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.services li .button-container a:hover {
+  background-color: red;
+}
+
+.service_details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service_details h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.service_details a {
+  padding: 10px 20px;
+  background-color: gray;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.service_details a:hover {
+  background-color: red;
+}
+
+.service_details div {
+  margin-top: 20px;
+}

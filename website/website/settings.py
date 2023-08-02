@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'baseApp',
     'projectsApp',
+    'servicesApp',
 ]
 
 MIDDLEWARE = [
