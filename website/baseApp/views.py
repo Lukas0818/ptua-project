@@ -37,9 +37,9 @@ def contact_form_submit(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
 
-        print("Name:", name)
-        print("Email:", email)
-        print("Message:", message)
+        print("Vardas:", name)
+        print("El. Pastas:", email)
+        print("Žinutė:", message)
 
         response_data = {
             'status': 'success',

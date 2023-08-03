@@ -3,7 +3,7 @@
 {% block content %}
 
   <div class="services">
-    <h1>Išsinuomotos prekės</h1>
+    <h1>Išsinuomotos paslaugos</h1>
     <ul>
       {% for rented_service in rented_services %}
       <li>
@@ -13,6 +13,9 @@
         </div>
       </li>
       {% endfor %}
+      <div>
+        <a href="{% url 'profile' %}">Grįžti atgal</a>
+      </div>
     </ul>
   </div>
   

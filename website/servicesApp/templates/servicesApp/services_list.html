@@ -13,9 +13,6 @@
 
   <div class="services">
     <h1>Paslaugų sarašas</h1>
-    <div class="button-container">
-      <a href="{% url 'servicesApp:rented_services' %}" class="btn btn-primary">Išsinuomotos prekės</a>
-    </div>
     <ul>
       {% for service in services %}
       <li>
