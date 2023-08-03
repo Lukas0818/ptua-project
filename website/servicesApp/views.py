@@ -117,3 +117,6 @@ def sale_service(request, pk):
         service.save()
     return redirect('servicesApp:service_detail', pk=service.pk)
 
+def rented_services_log(request):
+    rented_services = UserRentService.objects.all()
+    return render(request, 'servicesApp/rented_services_log.html', {'rented_services': rented_services})
