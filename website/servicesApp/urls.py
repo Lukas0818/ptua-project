@@ -11,4 +11,7 @@ urlpatterns = [
     path('rented_services/', views.rented_services, name='rented_services'),
     path('rented_service_detail/<int:pk>/', views.rented_service_detail, name='rented_service_detail'),
     path('return_service/<int:pk>/', views.return_service, name='return_service'),
+    path('admin_return_requests/', views.admin_return_requests, name='admin_return_requests'),
+    path('approve_return_request/<int:pk>/', views.approve_return_request, name='approve_return_request'),
+    path('deny_return_request/<int:pk>/', views.deny_return_request, name='deny_return_request'),
 ]

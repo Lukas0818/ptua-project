@@ -35,3 +35,11 @@ class UserRentService(models.Model):
 
     def __str__(self):
         return self.user_name
+    
+
+class ReturnRequest(models.Model):
+    rented_service = models.OneToOneField(UserRentService, on_delete=models.CASCADE)
+    approved = models.BooleanField(null=True)
+
+    def __str__(self):
+        return f"Return request for {self.rented_service.service.name}"

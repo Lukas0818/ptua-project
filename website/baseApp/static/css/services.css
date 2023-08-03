@@ -164,3 +164,59 @@
 .ui-datepicker td.ui-datepicker-today a {
   color: red;
 }
+
+/* admin_return_requests style >>> */
+
+.admin_return_requests {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.admin_return_requests h1 {
+  width: 100%;
+  text-align: center;
+}
+
+.admin_return_requests ul {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: space-between;
+}
+
+.admin_return_requests li {
+  width: calc(33.333% - 20px);
+  padding: 20px;
+  margin: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.admin_return_requests li p {
+  margin: 0 0 10px;
+}
+
+.admin_return_requests li .button-container {
+  margin-top: 10px;
+}
+
+.admin_return_requests li .button-container a {
+  padding: 10px 20px;
+  background-color: gray;
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+.admin_return_requests li .button-container a:last-child {
+  margin-right: 0;
+}
+
+.admin_return_requests li .button-container a:hover {
+  background-color: red;
+}

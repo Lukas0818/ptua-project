@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="admin_return_requests">
+    <h1>Grąžinimo prašymai</h1>
+    <ul>
+      {% for return_request in return_requests %}
+      <li>
+        <p>
+          <strong>Paslauga:</strong> {{ return_request.rented_service.service.name }} <br>
+          <strong>Vartotojo vardas:</strong> {{ return_request.rented_service.user_name }}
+        </p>
+        <div class="button-container">
+        <a href="{% url 'servicesApp:approve_return_request' return_request.pk %}">Patvirtinti</a> |
+        <a href="{% url 'servicesApp:deny_return_request' return_request.pk %}">Atmesti</a>
+      </div>
+      </li>
+      {% empty %}
+      <li>Nėra grąžinimo prašymų.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endblock %}

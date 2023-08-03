@@ -7,11 +7,22 @@
     <p>Data nuo kada išsinuomota: {{ rented_service.start_date }}</p>
     <p>Data iki kada išsinuomota: {{ rented_service.end_date }}</p>
     <p>Paslaugos kaina: {{ rented_service.total_price }}</p>
+
     {% if rented_service.returned == False %}
-      <form action="{% url 'servicesApp:return_service' rented_service.pk %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Grąžinti">
-      </form>
+      {% if rented_service.returnrequest %}
+        {% if rented_service.returnrequest.approved == None %}
+          <p>Laukiamas administratoriaus sprendimas dėl grąžinimo.</p>
+        {% elif rented_service.returnrequest.approved == False %}
+          <p>Grąžinimas atmestas administratoriaus.</p>
+        {% endif %}
+      {% else %}
+        <form action="{% url 'servicesApp:return_service' rented_service.pk %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Grąžinti">
+        </form>
+      {% endif %}
+    {% else %}
+      <p>Paslauga grąžinta.</p>
     {% endif %}
   </div>
   

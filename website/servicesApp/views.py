@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Service, UserRentService
+from .models import Service, UserRentService, ReturnRequest
 from .forms import RentServiceForm, SaleServiceForm, RentForm
 from django.views.decorators.csrf import csrf_exempt
 import datetime
@@ -75,16 +75,39 @@ def rented_service_detail(request, pk):
     rented_service = get_object_or_404(UserRentService, pk=pk)
     return render(request, 'servicesApp/rented_service_detail.html', {'rented_service': rented_service})
 
-@csrf_exempt
+
 def return_service(request, pk):
     rented_service = get_object_or_404(UserRentService, pk=pk)
-    if rented_service.returned == False:
-        rented_service.returned = True
-        rented_service.service.stock += 1
-        rented_service.service.save()
-        rented_service.delete()
-        rented_service.save()
-    return redirect('servicesApp:services_list')
+    ReturnRequest.objects.create(rented_service=rented_service)
+    return redirect('servicesApp:rented_services')
+
+def admin_return_requests(request):
+    if not request.user.is_staff:
+        return redirect('servicesApp:services_list')
+    return_requests = ReturnRequest.objects.filter(approved=None)
+    return render(request, 'servicesApp/admin_return_requests.html', {'return_requests': return_requests})
+
+def approve_return_request(request, pk):
+    if not request.user.is_staff:
+        return redirect('servicesApp:services_list')
+    return_request = get_object_or_404(ReturnRequest, pk=pk)
+    rented_service = return_request.rented_service
+    rented_service.returned = True
+    rented_service.service.stock += 1
+    rented_service.service.save()
+    return_request.approved = True
+    return_request.save()
+    rented_service.delete() 
+    return redirect('servicesApp:admin_return_requests')
+
+
+def deny_return_request(request, pk):
+    if not request.user.is_staff:
+        return redirect('servicesApp:services_list')
+    return_request = get_object_or_404(ReturnRequest, pk=pk)
+    return_request.approved = False
+    return_request.save()
+    return redirect('servicesApp:admin_return_requests')
 
 @csrf_exempt
 def sale_service(request, pk):
