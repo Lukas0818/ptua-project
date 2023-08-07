@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block content %}
 
 <h1>Jūsų Profilis</h1>
@@ -8,11 +9,36 @@
   <h1>Paskyros duomenys</h1>
   <p>Jūsų slapyvardis: {{ user.username }}</p>
   <p>Jūsų el. paštas: {% if user.email %}{{ user.email }}{% else %}El. paštas nenustatytas{% endif %}</p>
-  <p><a href="{% url 'password_reset' %}">Keisti slaptažodi</a></p>
-
+  <p><a href="{% url 'password_reset' %}" class="btn btn-primary">Keisti slaptažodi</a></p>
+</div>
+<div class="other-information">
   <h1>Kita informacija:</h1>
-  <p>Jūsų išsinuomotos paslaugos:</p>
+  <p>Jūsų aktyvios paslaugos:</p>
   <p><a href="{% url 'servicesApp:rented_services' %}" class="btn btn-primary">Skaityti daugiau</a></p>
 </div>
+
+<style>
+  .account-information,
+  .other-information {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin: 1rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .account-information h1,
+  .other-information h1 {
+    font-size: 1.2rem;
+    color: black;
+    margin-bottom: 0.5rem;
+  }
+
+  .account-information p,
+  .other-information p {
+    font-size: 1rem;
+    color: black;
+    margin-bottom: 0.5rem;
+  }
+</style>
 
 {% endblock %}
