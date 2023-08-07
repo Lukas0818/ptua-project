@@ -3,33 +3,33 @@
 {% block content %}
 
 <form action="" method="post" class="signup-form">
-    {% csrf_token %} 
-    <h3>Susikurkite paskyrą</h3>
-    {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-danger" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-    {% endif %}
+  {% csrf_token %} 
+  <h3>Susikurkite paskyrą</h3>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
 
-    <label for="username">Vartotojo vardas</label>
-    <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp">
-    <small id="usernameHelp" class="form-text text-muted">Iki 150 simbolių.</small>
+  <label for="username">Vartotojo vardas</label>
+  <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp">
+  <small id="usernameHelp" class="form-text text-muted">Iki 150 simbolių.</small>
 
-    <label for="exampleInputEmail1">El. paštas</label>
-    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <small id="emailHelp" class="form-text text-muted">Reikalingas naujam slaptažodžiui išsiųsti. </small>
+  <label for="exampleInputEmail1">El. paštas</label>
+  <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  <small id="emailHelp" class="form-text text-muted">Reikalingas naujam slaptažodžiui išsiųsti. </small>
 
-    <label for="password">Slaptažodis</label>
-    <input name="password" type="password" class="form-control" id="password" aria-describedby="pwdHelp">
-    <small id="pwdHelp" class="form-text text-muted">Ne mažiau, kaip 8 simboliai.</small>
+  <label for="password">Slaptažodis</label>
+  <input name="password" type="password" class="form-control" id="password" aria-describedby="pwdHelp">
+  <small id="pwdHelp" class="form-text text-muted">Ne mažiau, kaip 8 simboliai.</small>
 
-    <label for="password2">Pakartoti slaptažodį</label>
-    <input name="password2" type="password" class="form-control" id="password2" aria-describedby="pwd2Help">
-    <button type="submit">Registruotis</button>
+  <label for="password2">Pakartoti slaptažodį</label>
+  <input name="password2" type="password" class="form-control" id="password2" aria-describedby="pwd2Help">
+  <button type="submit">Registruotis</button>
     
-    <a href="{% url 'login'%}" >Aš jau turiu paskyrą</a>
+  <a href="{% url 'login'%}" >Aš jau turiu paskyrą</a>
 </form>
 
 <style>
