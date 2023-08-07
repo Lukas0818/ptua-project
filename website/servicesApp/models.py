@@ -11,8 +11,8 @@ class Service(models.Model):
     SALE = 'sale'
     
     TYPE_CHOICES = [
-        (RENT, 'Rent'),
-        (SALE, 'Sale'),
+        (RENT, 'Nuomojami'),
+        (SALE, 'Parduodami'),
     ]
 
     name = models.CharField(max_length=100)
@@ -42,4 +42,4 @@ class ReturnRequest(models.Model):
     approved = models.BooleanField(null=True)
 
     def __str__(self):
-        return f"Return request for {self.rented_service.service.name}"
+        return f"Gražinimo prašymas iš: {self.rented_service.service.name}"

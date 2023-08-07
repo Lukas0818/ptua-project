@@ -133,5 +133,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_POST = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'gmail@gmail.com'
-# el. pašto adresas iš kurio siųsite
 EMAIL_HOST_PASSWORD = 'password'
