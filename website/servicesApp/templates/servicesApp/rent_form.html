@@ -8,7 +8,7 @@
 <script src="{% static 'js/rent_form.js' %}" defer></script>
 
 <div class="rent_form">
-  <h1>Nuomotis: {{ service.name }}</h1>
+  <h1>Paslaugą: {{ service.name }}</h1>
   <div id="pricePerDay" data-price="{{ service.price }}" style="display:none;"></div>
   <form action="{% url 'servicesApp:rent_service' service.pk %}" method="post">
     <label for="id_start_date">Pradžios data:</label>

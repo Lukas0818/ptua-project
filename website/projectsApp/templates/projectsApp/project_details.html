@@ -5,8 +5,8 @@
 <div class="service_details">
   <h1>{{ project.name }}</h1>
   <p>Statusas: {{ project.status }}</p>
-  <p>Pradžios data: {{ project.start_date }}</p>
-  <p>Pabaigos data: {{ project.end_date }}</p>
+  <p>Pradžios data: {{ project.start_date|date:"Y-m-d" }}</p>
+  <p>Pabaigos data: {{ project.end_date|date:"Y-m-d" }}</p>
   <p>Kategorija: {{ project.category.name }}</p>
   <p>Aprašymas:</p>
   <p> {{ project.description }} </p>
