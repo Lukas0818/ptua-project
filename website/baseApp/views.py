@@ -3,6 +3,7 @@ from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -57,10 +58,11 @@ def contact_form_submit(request):
             'message': 'Netinkamas užklausos metodas.',
         }
         return JsonResponse(response_data, status=405)
-    
+
+@login_required    
 def about_us(request):
     return render(request, 'about_us.html')
 
-
+@login_required
 def profile(request):
     return render(request, 'profile.html')

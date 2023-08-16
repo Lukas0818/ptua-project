@@ -14,5 +14,4 @@ urlpatterns = [
     path('admin_return_requests/', views.admin_return_requests, name='admin_return_requests'),
     path('approve_return_request/<int:pk>/', views.approve_return_request, name='approve_return_request'),
     path('deny_return_request/<int:pk>/', views.deny_return_request, name='deny_return_request'),
-    path('rented_services_log/', views.rented_services_log, name='rented_services_log'),
 ]

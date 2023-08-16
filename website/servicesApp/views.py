@@ -4,9 +4,11 @@ from .forms import RentServiceForm, SaleServiceForm, RentForm
 from django.views.decorators.csrf import csrf_exempt
 import datetime
 from datetime import date
+from django.contrib.auth.decorators import login_required
 
 from .forms import ServiceSearchForm
 
+@login_required
 def services_list(request):
     form = ServiceSearchForm(request.GET)
     services = Service.objects.all()
@@ -17,13 +19,13 @@ def services_list(request):
 
     return render(request, 'servicesApp/services_list.html', {'services': services, 'form': form})
 
-
+@login_required
 def service_detail(request, pk):
     service = Service.objects.get(pk=pk)
     template_name = 'servicesApp/rent_detail.html' if service.type == Service.RENT else 'servicesApp/sale_detail.html'
     return render(request, template_name, {'service': service})
 
-
+@login_required
 def create_rent_service(request):
     form = RentServiceForm(request.POST or None)
     if form.is_valid():
@@ -33,6 +35,7 @@ def create_rent_service(request):
         return redirect('servicesApp:service_detail', pk=service.pk)
     return render(request, 'servicesApp/create_service.html', {'form': form})
 
+@login_required
 def create_sale_service(request):
     form = SaleServiceForm(request.POST or None)
     if form.is_valid():
@@ -42,6 +45,7 @@ def create_sale_service(request):
         return redirect('servicesApp:service_detail', pk=service.pk)
     return render(request, 'servicesApp/create_service.html', {'form': form})
 
+@login_required
 @csrf_exempt
 def rent_service(request, pk):
     service = get_object_or_404(Service, pk=pk)
@@ -66,27 +70,31 @@ def rent_service(request, pk):
 
     return render(request, 'servicesApp/rent_form.html', {'service': service, 'form': form})
 
+@login_required
 def rented_services(request):
     today = date.today()
     rented_services = UserRentService.objects.filter(returned=False, end_date__gte=today)
     return render(request, 'servicesApp/rented_services.html', {'rented_services': rented_services})
 
+@login_required
 def rented_service_detail(request, pk):
     rented_service = get_object_or_404(UserRentService, pk=pk)
     return render(request, 'servicesApp/rented_service_detail.html', {'rented_service': rented_service})
 
-
+@login_required
 def return_service(request, pk):
     rented_service = get_object_or_404(UserRentService, pk=pk)
     ReturnRequest.objects.create(rented_service=rented_service)
     return redirect('servicesApp:rented_services')
 
+@login_required
 def admin_return_requests(request):
     if not request.user.is_staff:
         return redirect('servicesApp:services_list')
     return_requests = ReturnRequest.objects.filter(approved=None)
     return render(request, 'servicesApp/admin_return_requests.html', {'return_requests': return_requests})
 
+@login_required
 def approve_return_request(request, pk):
     if not request.user.is_staff:
         return redirect('servicesApp:services_list')
@@ -100,7 +108,7 @@ def approve_return_request(request, pk):
     rented_service.delete() 
     return redirect('servicesApp:admin_return_requests')
 
-
+@login_required
 def deny_return_request(request, pk):
     if not request.user.is_staff:
         return redirect('servicesApp:services_list')
@@ -109,6 +117,7 @@ def deny_return_request(request, pk):
     return_request.save()
     return redirect('servicesApp:admin_return_requests')
 
+@login_required
 @csrf_exempt
 def sale_service(request, pk):
     service = get_object_or_404(Service, pk=pk)
@@ -116,7 +125,3 @@ def sale_service(request, pk):
         service.stock -= 1
         service.save()
     return redirect('servicesApp:service_detail', pk=service.pk)
-
-def rented_services_log(request):
-    rented_services = UserRentService.objects.all()
-    return render(request, 'servicesApp/rented_services_log.html', {'rented_services': rented_services})
