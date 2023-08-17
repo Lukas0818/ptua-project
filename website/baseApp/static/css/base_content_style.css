@@ -246,15 +246,15 @@ textarea.form-control {
 
 /* about_us style >>> */
 
-  h2, a {
+h2, a {
     text-align: center;
-  }
+}
 
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
 
 .about-us h2, .management h2 {
     border-bottom: 2px solid #333;
@@ -333,5 +333,136 @@ textarea.form-control {
   }
 }
 
-/* profile style >>> */
+/* reviews style >>> */
 
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 80%;
+  margin: 50px auto;
+  border: 1px solid #e1e1e1;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.review h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.review a {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: 30px;
+  background-color: gray;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.review a:hover {
+  background-color: red;
+}
+
+.review > div {
+  margin-bottom: 30px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.review h3 {
+  font-size: 24px;
+  margin-top: 0;
+  text-align: center;
+}
+
+.review p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.delete-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.pagination .step-links {
+  display: flex;
+  gap: 10px;
+}
+
+.pagination .step-links a {
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: gray;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.pagination .step-links a:hover {
+  background-color: red;
+}
+
+.pagination .current {
+  margin: 0 10px;
+  align-self: center;
+  color: #333;
+}
+
+/* create_review style >>> */
+
+.create-review {
+  background-color: white;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.review-form {
+  margin-bottom: 20px;
+}
+
+.review-form input[type="text"],
+.review-form input[type="number"] {
+  width: 450px;
+}
+
+.review-form textarea {
+  width: 650px;
+  height: 250px;
+}
+
+.review-control {
+  height: 40px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.review-control:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+textarea.review-control {
+  resize: vertical;
+}
