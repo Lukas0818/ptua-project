@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="create_review">
+    <h1>Pateikti atsiliepimą</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="{{ form.title.name }}" id="{{ form.title.id_for_label }}" placeholder="Antraštė" required>
+            <small class="error-message" id="titleError">Įveskite antraštę.</small>
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-control" name="{{ form.content.name }}" id="{{ form.content.id_for_label }}" placeholder="Turinys" rows="4" required></textarea>
+            <small class="error-message" id="contentError">Įveskite turinį.</small>
+        </div>
+
+        <div class="form-group">
+            <input type="number" class="form-control" name="{{ form.rating.name }}" id="{{ form.rating.id_for_label }}" placeholder="Įvertinimas (1-10)" required>
+            <small class="error-message" id="ratingError">Įveskite įvertinimą tarp 1 ir 10.</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Pateikti</button>
+    </form>
+</div>
+{% endblock %}

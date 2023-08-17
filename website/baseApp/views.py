@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from .forms import ReviewForm
+from .models import Review
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -66,3 +69,40 @@ def about_us(request):
 @login_required
 def profile(request):
     return render(request, 'profile.html')
+
+@login_required
+def reviews(request):
+    reviews_list = Review.objects.all().order_by('-date_posted')
+    paginator = Paginator(reviews_list, 10)  # Rodo 10 atsiliepimų per puslapį
+
+    page = request.GET.get('page')
+    reviews = paginator.get_page(page)
+
+    return render(request, 'reviews.html', {'reviews': reviews})
+
+
+@login_required
+def create_review(request):
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.save()
+            return redirect('reviews')
+    else:
+        form = ReviewForm()
+    return render(request, 'create_review.html', {'form': form})
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+
+    if request.user.is_superuser or review.user.id == request.user.id:
+        review.delete()
+        messages.success(request, "Atsiliepimas sėkmingai ištrintas!")
+    else:
+        messages.error(request, "Neturite teisių ištrinti šio atsiliepimo!")
+
+    return redirect('reviews')
+

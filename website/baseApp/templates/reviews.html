@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="review">
+    <h1>Atsiliepimai</h1>
+    <a href="{% url 'create_review' %}">Parašyti atsiliepimą</a>
+    {% for review in reviews %}
+    <div>
+        <h3>{{ review.title }}</h3>
+        <p>Autorius: {{ review.user.username }}</p>
+        <p>Įvertinimas: {{ review.rating }}</p>
+        <p>{{ review.content }}</p>
+        <p>Įrašyta: {{ review.date_posted|date:"Y-m-d" }} {{ review.date_posted|date:"H:i" }}</p>
+        {% if user.is_superuser or user == review.user %}
+            <div class="delete-button-container">
+                <a href="{% url 'delete_review' review.id %}">Ištrinti</a>
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if reviews.has_previous %}
+            <a href="?page=1">&laquo; Pirmas</a>
+            <a href="?page={{ reviews.previous_page_number }}">Ankstesnis</a>
+        {% endif %}
+
+        <span class="current">
+            Puslapis {{ reviews.number }} iš {{ reviews.paginator.num_pages }}
+        </span>
+
+        {% if reviews.has_next %}
+            <a href="?page={{ reviews.next_page_number }}">Kitas</a>
+            <a href="?page={{ reviews.paginator.num_pages }}">Paskutinis &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<style>
+/* Bendras stilius atsiliepimų konteineriui */
+.review {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centruoja horizontaliai */
+    justify-content: center; /* centruoja vertikaliai */
+
+    width: 80%;
+    margin: 50px auto;
+    border: 1px solid #e1e1e1;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+/* Atsiliepimų antraštė */
+.review h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.review a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    background-color: gray;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.review a:hover {
+    background-color: red;
+}
+
+.review > div {
+    margin-bottom: 30px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.review h3 {
+    font-size: 24px;
+    margin-top: 0;
+    text-align: center;
+}
+
+.review p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.delete-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* centruoja mygtuką horizontaliai */
+    margin-top: 20px; /* atstumas nuo turinio viršuje */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination .step-links {
+    display: flex;
+    gap: 10px;
+}
+
+.pagination .step-links a {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: gray;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.pagination .step-links a:hover {
+    background-color: red;
+}
+
+.pagination .current {
+    margin: 0 10px;
+    align-self: center;
+    color: #333;
+}
+
+</style>
+
+{% endblock %}
